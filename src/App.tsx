@@ -9,14 +9,27 @@ function App() {
         <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
           这是一个大按钮
         </Button>
-        <Button>这是一个按钮</Button>
-        <Button btnType={ButtonType.Primary} size={ButtonSize.Small}>
+        <Button onClick={() => console.log(1)}>这是一个按钮</Button>
+        <Button
+          className="custom"
+          btnType={ButtonType.Primary}
+          size={ButtonSize.Small}
+        >
           这是一个小按钮
         </Button>
-        <Button btnType={ButtonType.Link} href="http://www.baidu.com">
+        <Button
+          btnType={ButtonType.Link}
+          href="http://www.baidu.com"
+          target="_blank"
+        >
           百度Link
         </Button>
-        <Button btnType={ButtonType.Link} href="http://www.baidu.com" disabled>
+        <Button
+          onClick={() => console.log(1)}
+          btnType={ButtonType.Link}
+          href="http://www.baidu.com"
+          disabled
+        >
           百度Link
         </Button>
         <Button btnType={ButtonType.Link} href="http://www.baidu.com">

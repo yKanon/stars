@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import { type } from 'os'
 
 export enum ButtonSize {
   Large = 'lg',
@@ -22,11 +23,25 @@ interface IBaseButtonProps {
   children: React.ReactNode
 }
 
-const Button: React.FC<IBaseButtonProps> = (props) => {
-  const { disabled, className, size, btnType, href, children } = props
+type NativeButtonProps = IBaseButtonProps &
+  React.ButtonHTMLAttributes<HTMLElement>
+type AnchorButtonProps = IBaseButtonProps &
+  React.AnchorHTMLAttributes<HTMLElement>
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
+
+const Button: React.FC<ButtonProps> = (props) => {
+  const {
+    disabled,
+    className,
+    size,
+    btnType,
+    href,
+    children,
+    ...restProps
+  } = props
 
   // btn, btn-lg, btn-danger
-  const classes = classNames('btn', {
+  const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
     disabled: btnType === ButtonType.Link && disabled
@@ -35,13 +50,13 @@ const Button: React.FC<IBaseButtonProps> = (props) => {
   if (btnType === ButtonType.Link && href) {
     return (
       // eslint-disable-next-line
-      <a className={classes} href={disabled ? undefined : href}>
+      <a className={classes} href={disabled ? undefined : href} {...restProps}>
         {children}
       </a>
     )
   } else {
     return (
-      <button className={classes} disabled={disabled}>
+      <button className={classes} disabled={disabled} {...restProps}>
         {children}
       </button>
     )
