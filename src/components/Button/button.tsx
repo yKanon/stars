@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 export enum ButtonSize {
   Large = 'lg',
-  Small = 'small'
+  Small = 'sm'
 }
 
 export enum ButtonType {
@@ -34,7 +34,8 @@ const Button: React.FC<IBaseButtonProps> = (props) => {
 
   if (btnType === ButtonType.Link && href) {
     return (
-      <a className={classes} href={href}>
+      // eslint-disable-next-line
+      <a className={classes} href={disabled ? undefined : href}>
         {children}
       </a>
     )
