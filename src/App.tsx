@@ -25,16 +25,21 @@ function App() {
           百度Link
         </Button>
         <Button
-          onClick={() => console.log(1)}
           btnType={ButtonType.Link}
           href="http://www.baidu.com"
+          onClick={(e) => console.log(e)}
           disabled
         >
-          百度Link
+          百度Disabled
         </Button>
-        <Button btnType={ButtonType.Link} href="http://www.baidu.com">
+        {/* <Button
+          onClick={() => console.log(`link`)}
+          btnType={ButtonType.Link}
+          // eslint-disable-next-line
+          href="javascript: void(0);"
+        >
           百度Link
-        </Button>
+        </Button> */}
         <Button btnType={ButtonType.Danger}>这是一个按钮</Button>
       </header>
 
