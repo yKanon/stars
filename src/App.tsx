@@ -1,9 +1,16 @@
 import React from 'react'
 import Button, { ButtonSize, ButtonType } from './components/Button/button'
+import Menu from './components/Menu/menu'
+import MenuItem from './components/Menu/menuItem'
 
 function App() {
   return (
     <div className="App">
+      <Menu defaultIndex={0}>
+        <MenuItem>cool link 1</MenuItem>
+        <MenuItem>cool link 2</MenuItem>
+        <MenuItem>cool link 3</MenuItem>
+      </Menu>
       <header className="App-header">
         <Button disabled>这是一个按钮</Button>
         <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
