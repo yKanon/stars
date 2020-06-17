@@ -68,8 +68,8 @@ describe('test button component', () => {
     expect(element).toBeInTheDocument()
     expect(element).toHaveClass('btn btn-link disabled')
     expect(element).not.toHaveAttribute('href')
-    fireEvent.click(element)
     // TODO link button has class .disabled, has css `pointer-events: none;`.It should prevent callback be called.
+    // fireEvent.click(element)
     // expect(disabledProps.onClick).not.toHaveBeenCalled()
   })
 })
