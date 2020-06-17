@@ -6,10 +6,17 @@ import MenuItem from './components/Menu/menuItem'
 function App() {
   return (
     <div className="App">
-      <Menu defaultIndex={0}>
-        <MenuItem>cool link 1</MenuItem>
-        <MenuItem>cool link 2</MenuItem>
-        <MenuItem>cool link 3</MenuItem>
+      <Menu
+        defaultIndex={1}
+        onSelect={(index) => {
+          alert(index)
+        }}
+      >
+        <MenuItem index={1}>cool link 1</MenuItem>
+        <MenuItem index={2} disabled>
+          cool link 2
+        </MenuItem>
+        <MenuItem index={3}>cool link 3</MenuItem>
       </Menu>
       <header className="App-header">
         <Button disabled>这是一个按钮</Button>
