@@ -7,16 +7,14 @@ function App() {
   return (
     <div className="App">
       <Menu
-        defaultIndex={0}
+        defaultIndex={1}
         onSelect={(index) => {
           alert(index)
         }}
       >
-        <MenuItem index={0}>cool link 1</MenuItem>
-        <MenuItem index={1} disabled>
-          cool link 2
-        </MenuItem>
-        <MenuItem index={2}>cool link 3</MenuItem>
+        <MenuItem>cool link 1</MenuItem>
+        <MenuItem disabled>cool link 2</MenuItem>
+        <MenuItem>cool link 3</MenuItem>
       </Menu>
 
       <Menu

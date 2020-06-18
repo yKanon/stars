@@ -1,5 +1,6 @@
 import React, { useState, createContext } from 'react'
 import classNames from 'classnames'
+import { IMenuItemProps } from './menuItem'
 
 type MenuMode = 'horizontal' | 'vertical'
 type SelectCallback = (selectIndex: number) => void
@@ -30,6 +31,22 @@ const Menu: React.FC<IMenuProps> = (props) => {
     onSelect && onSelect(index)
   }
 
+  const renderChildren = () => {
+    return React.Children.map(children, (child, index) => {
+      const childElement = child as React.FunctionComponentElement<
+        IMenuItemProps
+      >
+      const { displayName } = childElement.type
+
+      // eslint-disable-next-line
+      return displayName === 'MenuItem'
+        ? React.cloneElement(childElement, { index })
+        : console.error(
+            `Warning: Menu has a child which is not a MenuItem component`
+          )
+    })
+  }
+
   const passedContext: IMenuContext = {
     index: currentActive ?? 0,
     onSelect: handleClick
@@ -37,7 +54,7 @@ const Menu: React.FC<IMenuProps> = (props) => {
   return (
     <ul className={classes} style={style} data-testid="test-menu">
       <MenuContext.Provider value={passedContext}>
-        {children}
+        {renderChildren()}
       </MenuContext.Provider>
     </ul>
   )
