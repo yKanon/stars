@@ -18,6 +18,21 @@ function App() {
         </MenuItem>
         <MenuItem index={3}>cool link 3</MenuItem>
       </Menu>
+
+      <Menu
+        mode="vertical"
+        defaultIndex={1}
+        onSelect={(index) => {
+          alert(index)
+        }}
+      >
+        <MenuItem index={1}>cool link 1</MenuItem>
+        <MenuItem index={2} disabled>
+          cool link 2
+        </MenuItem>
+        <MenuItem index={3}>cool link 3</MenuItem>
+      </Menu>
+
       <header className="App-header">
         <Button disabled>这是一个按钮</Button>
         <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
