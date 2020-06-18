@@ -80,9 +80,9 @@
   }
   &.disabled {
     color: $btn-link-disabled-color;
-    cursor: not-allowed;
+    // cursor: not-allowed;
+    pointer-events: none;
     &:hover {
-      // pointer-events: none;
       color: $btn-link-disabled-color;
     }
   }
