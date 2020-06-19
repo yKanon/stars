@@ -23,7 +23,8 @@ const Menu: React.FC<IMenuProps> = (props) => {
   const { defaultIndex, style, className, mode, children, onSelect } = props
   const [currentActive, setActive] = useState(defaultIndex)
   const classes = classNames('stars-menu', className, {
-    'stars-menu-vertical': mode === 'vertical'
+    'stars-menu-vertical': mode === 'vertical',
+    'stars-menu-horizontal': mode !== 'vertical'
   })
 
   const handleClick = (index: number) => {
@@ -39,7 +40,7 @@ const Menu: React.FC<IMenuProps> = (props) => {
       const { displayName } = childElement.type
 
       // eslint-disable-next-line
-      return displayName === 'MenuItem'
+      return displayName === 'MenuItem' || displayName === 'SubMenu'
         ? React.cloneElement(childElement, { index })
         : console.error(
             `Warning: Menu has a child which is not a MenuItem component`
