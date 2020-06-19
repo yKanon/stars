@@ -33,6 +33,7 @@
       align-items: center;
     }
     .stars-submenu {
+      display: none;
       list-style: none;
       padding-left: 0;
       white-space: nowrap;
@@ -51,6 +52,10 @@
           cursor: default;
         }
       }
+    }
+
+    .stars-submenu.stars-submenu-open {
+      display: block !important;
     }
   }
 }

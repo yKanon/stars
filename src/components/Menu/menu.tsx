@@ -15,6 +15,7 @@ export interface IMenuProps {
 interface IMenuContext {
   index: number
   onSelect?: SelectCallback
+  mode?: MenuMode
 }
 
 export const MenuContext = createContext<IMenuContext>({ index: 0 })
@@ -50,7 +51,8 @@ const Menu: React.FC<IMenuProps> = (props) => {
 
   const passedContext: IMenuContext = {
     index: currentActive ?? 0,
-    onSelect: handleClick
+    onSelect: handleClick,
+    mode
   }
   return (
     <ul className={classes} style={style} data-testid="test-menu">
