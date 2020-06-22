@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Menu
-        defaultIndex={0}
+        defaultIndex="0"
         onSelect={(index) => {
           alert(index)
         }}
@@ -23,20 +23,21 @@ function App() {
 
       <Menu
         mode="vertical"
-        defaultIndex={0}
+        defaultIndex="0"
+        defaultOpenSubMenus={['2']}
         onSelect={(index) => {
           alert(index)
         }}
       >
-        <MenuItem index={0}>cool link 1</MenuItem>
-        <MenuItem index={1} disabled>
+        <MenuItem index="0">cool link 1</MenuItem>
+        <MenuItem index="1" disabled>
           cool link 2
         </MenuItem>
         <SubMenu title="dropdown">
           <MenuItem>dropdown1</MenuItem>
           <MenuItem>dropdown2</MenuItem>
         </SubMenu>
-        <MenuItem index={2}>cool link 3</MenuItem>
+        <MenuItem>cool link 3</MenuItem>
       </Menu>
 
       <code>hello world</code>
