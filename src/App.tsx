@@ -1,18 +1,23 @@
-import React from 'react'
-import Menu from './components/Menu/menu'
-import MenuItem from './components/Menu/menuItem'
-import SubMenu from './components/Menu/subMenu'
+import React from "react";
+import Menu from "./components/Menu/menu";
+import MenuItem from "./components/Menu/menuItem";
+import SubMenu from "./components/Menu/subMenu";
+import Icon from "./components/icon/icon";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+library.add(fas);
 
 function App() {
   return (
     <div className="App">
+      <Icon icon="coffee" theme="danger" size="10x" />
+
       <Menu
         defaultIndex="0"
         onSelect={(index) => {
-          alert(index)
+          alert(index);
         }}
       >
         <MenuItem>cool link 1</MenuItem>
@@ -24,14 +29,12 @@ function App() {
         <MenuItem>cool link 3</MenuItem>
       </Menu>
 
-      <FontAwesomeIcon icon={faCoffee} />
-
-      <Menu
+      {/* <Menu
         mode="vertical"
         defaultIndex="0"
-        defaultOpenSubMenus={['2']}
+        defaultOpenSubMenus={["2"]}
         onSelect={(index) => {
-          alert(index)
+          alert(index);
         }}
       >
         <MenuItem index="0">cool link 1</MenuItem>
@@ -46,9 +49,9 @@ function App() {
       </Menu>
 
       <code>hello world</code>
-      <a href="http://www.baidu.com">百度</a>
+      <a href="http://www.baidu.com">百度</a> */}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
