@@ -29,7 +29,7 @@ function App() {
         <MenuItem>cool link 3</MenuItem>
       </Menu>
 
-      {/* <Menu
+      <Menu
         mode="vertical"
         defaultIndex="0"
         defaultOpenSubMenus={["2"]}
@@ -49,7 +49,7 @@ function App() {
       </Menu>
 
       <code>hello world</code>
-      <a href="http://www.baidu.com">百度</a> */}
+      <a href="http://www.baidu.com">百度</a>
     </div>
   );
 }

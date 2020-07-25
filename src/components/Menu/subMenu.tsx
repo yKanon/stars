@@ -1,93 +1,99 @@
-import React, { useContext, useState } from 'react'
-import classNames from 'classnames'
-import { MenuContext } from './menu'
-import { IMenuItemProps } from './menuItem'
+import React, { useContext, useState } from "react";
+import classNames from "classnames";
+import { MenuContext } from "./menu";
+import { IMenuItemProps } from "./menuItem";
+import Icon from "../icon/icon";
 
 export interface ISubMenuProps {
-  index?: string
-  title: string
-  className?: string
+  index?: string;
+  title: string;
+  className?: string;
 }
 
 const SubMenu: React.FC<ISubMenuProps> = ({
   index,
   title,
   children,
-  className
+  className,
 }) => {
-  const context = useContext(MenuContext)
-  const openedSubMenus = context.defaultOpenSubMenus as string[]
+  const context = useContext(MenuContext);
+  const openedSubMenus = context.defaultOpenSubMenus as string[];
   const isOpened =
-    index && context.mode === 'vertical'
+    index && context.mode === "vertical"
       ? openedSubMenus.includes(index)
-      : false
+      : false;
 
-  const [subMenuIsOpen, setSebMenuIsOpen] = useState(isOpened)
+  const [subMenuIsOpen, setSebMenuIsOpen] = useState(isOpened);
   const classes = classNames(
-    'stars-menu-item stars-menu-item-submenu',
+    "stars-menu-item stars-menu-item-submenu",
     className,
     {
-      'is-active': context.index === index
+      "is-active": context.index === index,
+      "is-opened": subMenuIsOpen,
+      "is-vertical": context.mode === "vertical",
     }
-  )
+  );
 
-  let timer: NodeJS.Timeout
+  let timer: NodeJS.Timeout;
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
-    clearTimeout(timer)
-    e.preventDefault()
+    clearTimeout(timer);
+    e.preventDefault();
     timer = setTimeout(() => {
-      setSebMenuIsOpen(toggle)
-    }, 300)
-  }
+      setSebMenuIsOpen(toggle);
+    }, 300);
+  };
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    setSebMenuIsOpen(!subMenuIsOpen)
-  }
+    e.preventDefault();
+    setSebMenuIsOpen(!subMenuIsOpen);
+  };
 
-  const clickEvent = context.mode === 'vertical' ? { onClick: handleClick } : {}
+  const clickEvent =
+    context.mode === "vertical" ? { onClick: handleClick } : {};
+
   const hoverEvents =
-    context.mode !== 'vertical'
+    context.mode !== "vertical"
       ? {
           onMouseEnter: (e: React.MouseEvent) => {
-            handleMouse(e, true)
+            handleMouse(e, true);
           },
           onMouseLeave: (e: React.MouseEvent) => {
-            handleMouse(e, false)
-          }
+            handleMouse(e, false);
+          },
         }
-      : {}
+      : {};
 
   const renderChildren = () => {
-    const subClasses = classNames('stars-submenu', {
-      'stars-submenu-open': subMenuIsOpen
-    })
+    const subClasses = classNames("stars-submenu", {
+      "stars-submenu-open": subMenuIsOpen,
+    });
     const childrenComponents = React.Children.map(children, (child, i) => {
       const childElement = child as React.FunctionComponentElement<
         IMenuItemProps
-      >
-      const { displayName } = childElement.type
+      >;
+      const { displayName } = childElement.type;
 
       // eslint-disable-next-line
-      return displayName === 'MenuItem'
+      return displayName === "MenuItem"
         ? React.cloneElement(childElement, { index: `${index}-${i}` })
         : console.error(
             `Warning: Menu has a child which is not a MenuItem component`
-          )
-    })
+          );
+    });
 
-    return <ul className={subClasses}>{childrenComponents}</ul>
-  }
+    return <ul className={subClasses}>{childrenComponents}</ul>;
+  };
 
   return (
     <li className={classes} key={index} {...hoverEvents}>
       <div className="stars-submenu-title" {...clickEvent}>
         {title}
+        <Icon icon="angle-down" className="arrow-icon" />
       </div>
       {renderChildren()}
     </li>
-  )
-}
+  );
+};
 
-SubMenu.displayName = `SubMenu`
+SubMenu.displayName = `SubMenu`;
 
-export default SubMenu
+export default SubMenu;
