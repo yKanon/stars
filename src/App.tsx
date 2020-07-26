@@ -4,7 +4,7 @@ import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
 import Icon from "./components/icon/icon";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fas);
@@ -12,8 +12,6 @@ library.add(fas);
 function App() {
   return (
     <div className="App">
-      <Icon icon="coffee" theme="danger" size="10x" />
-
       <Menu
         defaultIndex="0"
         onSelect={(index) => {
@@ -47,9 +45,6 @@ function App() {
         </SubMenu>
         <MenuItem>cool link 3</MenuItem>
       </Menu>
-
-      <code>hello world</code>
-      <a href="http://www.baidu.com">百度</a>
     </div>
   );
 }
