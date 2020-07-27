@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import { type } from "os";
 
 export type ButtonSize = "lg" | "sm";
 
