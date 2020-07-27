@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "./components/Menu/menu";
 import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
-import Icon from "./components/icon/icon";
+import Transition from "./components/Transition/transition";
+import Button from "./components/Button/button";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fas);
 
-function App() {
+const App: React.FC = (props) => {
+  const [show, setShow] = useState(false);
+
   return (
     <div className="App">
       <Menu
@@ -27,26 +29,45 @@ function App() {
         <MenuItem>cool link 3</MenuItem>
       </Menu>
 
-      <Menu
-        mode="vertical"
-        defaultIndex="0"
-        defaultOpenSubMenus={["2"]}
-        onSelect={(index) => {
-          alert(index);
+      <Button
+        size="lg"
+        onClick={() => {
+          setShow(!show);
         }}
       >
-        <MenuItem index="0">cool link 1</MenuItem>
-        <MenuItem index="1" disabled>
-          cool link 2
-        </MenuItem>
-        <SubMenu title="dropdown">
-          <MenuItem>dropdown1</MenuItem>
-          <MenuItem>dropdown2</MenuItem>
-        </SubMenu>
-        <MenuItem>cool link 3</MenuItem>
-      </Menu>
+        Toggle
+      </Button>
+
+      <Transition in={show} timeout={300} animation="zoom-in-left">
+        <div>
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload.
+          </p>
+        </div>
+      </Transition>
+
+      <Transition in={show} timeout={300} animation="zoom-in-left" wrapper>
+        <Button btnType="primary" size="lg">
+          A Large Button
+        </Button>
+      </Transition>
     </div>
   );
-}
+};
 
 export default App;
