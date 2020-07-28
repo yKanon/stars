@@ -1,33 +1,51 @@
 {
-  "name": "stars",
-  "version": "0.1.0",
-  "private": true,
+  "name": "starts",
+  "version": "0.1.2",
+  "private": false,
+  "description": "使用ts开发的react组件库(个人学习ts)",
+  "author": "yKanon",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "UI",
+    "React",
+    "typescript"
+  ],
+  "homepage": "https://github.com/chenshone/chen-ui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chenshone/chen-ui"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.29",
-    "@fortawesome/free-solid-svg-icons": "^5.13.1",
-    "@fortawesome/react-fontawesome": "^0.1.11",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-transition-group": "^4.4.0",
-    "babel-loader": "^8.1.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "react-transition-group": "^4.4.1",
-    "typescript": "~3.7.2"
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/react-fontawesome": "^0.1.9",
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "react-transition-group": "^4.3.0"
   },
   "scripts": {
-    "serve": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "clean": "rimraf ./dist",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+    "build": "npm run clean && npm run build-ts && npm run build-css",
+    "test:nowatch": "cross-env CI=true react-scripts test",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,13 +63,28 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/addons": "^5.3.19",
-    "@storybook/preset-create-react-app": "^3.1.4",
-    "@storybook/react": "^5.3.19",
+    "@storybook/addon-actions": "^5.2.8",
+    "@storybook/addon-info": "^5.2.8",
+    "@storybook/addon-links": "^5.2.8",
+    "@storybook/addons": "^5.2.8",
+    "@storybook/react": "^5.2.8",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
     "@types/classnames": "^2.2.10",
-    "classnames": "^2.2.6",
-    "node-sass": "^4.14.1"
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-transition-group": "^4.2.4",
+    "@types/storybook__addon-info": "^5.2.1",
+    "cross-env": "^7.0.2",
+    "node-sass": "^4.14.0",
+    "react": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.6.0",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "rimraf": "^3.0.2",
+    "typescript": "~3.7.2"
   }
 }
