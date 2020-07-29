@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
 import classNames from "classnames";
 
 export type ButtonSize = "lg" | "sm";
@@ -14,13 +14,11 @@ interface IBaseButtonProps {
   children: React.ReactNode;
 }
 
-type NativeButtonProps = IBaseButtonProps &
-  React.ButtonHTMLAttributes<HTMLElement>;
-type AnchorButtonProps = IBaseButtonProps &
-  React.AnchorHTMLAttributes<HTMLElement>;
+type NativeButtonProps = IBaseButtonProps & ButtonHTMLAttributes<HTMLElement>;
+type AnchorButtonProps = IBaseButtonProps & AnchorHTMLAttributes<HTMLElement>;
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 
-const Button: React.FC<ButtonProps> = (props) => {
+export const Button: FC<ButtonProps> = (props) => {
   const {
     disabled,
     className,
