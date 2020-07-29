@@ -29,13 +29,6 @@ storiesOf("Button", module)
   .addDecorator(withInfo)
   .addParameters({
     info: {
-      text: `
-        this is a component
-        ## this is a header
-        ~~~JSON
-          hello world
-        ~~~
-      `,
       inline: true,
     },
   })
