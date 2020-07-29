@@ -1,61 +1,66 @@
 import React, {
-  useContext,
   useState,
-  FC,
   FunctionComponentElement,
+  useContext,
+  FC,
 } from "react";
 import classNames from "classnames";
-import { MenuContext } from "./menu";
-import { IMenuItemProps } from "./menuItem";
+
+import { MenuContext } from "./Menu";
+import { MenuItemProps } from "./MenuItem";
 import Icon from "../icon/icon";
 import Transition from "../Transition/transition";
 
-export interface ISubMenuProps {
+export interface SubMenuProps {
   index?: string;
   title: string;
   className?: string;
 }
 
-export const SubMenu: FC<ISubMenuProps> = ({
+export const SubMenu: FC<SubMenuProps> = ({
   index,
   title,
-  children,
   className,
+  children,
 }) => {
   const context = useContext(MenuContext);
-  const openedSubMenus = context.defaultOpenSubMenus as string[];
+  // 可以同时打开多个 所以是个数组
+  const openedSubMenus = context.defaultOpenSubMenus as Array<string>;
   const isOpened =
     index && context.mode === "vertical"
       ? openedSubMenus.includes(index)
       : false;
 
-  const [subMenuIsOpen, setSebMenuIsOpen] = useState(isOpened);
-  const classes = classNames(
-    "stars-menu-item stars-menu-item-submenu",
-    className,
-    {
-      "is-active": context.index === index,
-      "is-opened": subMenuIsOpen,
-      "is-vertical": context.mode === "vertical",
-    }
-  );
+  const [menuOpen, setOpen] = useState(isOpened);
 
-  let timer: NodeJS.Timeout;
+  const classes = classNames("menu-item submenu-item", className, {
+    "is-active": context.index === index,
+    "is-opened": menuOpen,
+    "is-vertical": context.mode === "vertical",
+  });
+
+  // subMenu隐藏于展开
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(!menuOpen);
+  };
+
+  let timer: any;
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
     clearTimeout(timer);
     e.preventDefault();
     timer = setTimeout(() => {
-      setSebMenuIsOpen(toggle);
+      setOpen(toggle);
     }, 300);
   };
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setSebMenuIsOpen(!subMenuIsOpen);
-  };
 
-  const clickEvent =
-    context.mode === "vertical" ? { onClick: handleClick } : {};
-
+  //  vertical模式下没有mouse事件
+  const clickEvents =
+    context.mode === "vertical"
+      ? {
+          onClick: handleClick,
+        }
+      : {};
   const hoverEvents =
     context.mode !== "vertical"
       ? {
@@ -69,31 +74,27 @@ export const SubMenu: FC<ISubMenuProps> = ({
       : {};
 
   const renderChildren = () => {
-    const subClasses = classNames("stars-submenu", {
-      "stars-submenu-open": subMenuIsOpen,
+    const subMenuClasses = classNames("submenu", {
+      "menu-opened": menuOpen,
     });
-    const childrenComponents = React.Children.map(children, (child, i) => {
-      const childElement = child as FunctionComponentElement<IMenuItemProps>;
-      const { displayName } = childElement.type;
-
-      // eslint-disable-next-line
-      return displayName === "MenuItem"
-        ? React.cloneElement(childElement, { index: `${index}-${i}` })
-        : console.error(
-            `Warning: Menu has a child which is not a MenuItem component`
-          );
+    const childrenComponent = React.Children.map(children, (child, i) => {
+      const childElement = child as FunctionComponentElement<MenuItemProps>;
+      if (childElement.type.displayName === "MenuItem") {
+        return React.cloneElement(childElement, { index: `${index}-${i}` });
+      } else {
+        console.error("warning: SubMenu的child必须是一个MenuItem");
+      }
     });
-
     return (
-      <Transition in={subMenuIsOpen} timeout={300} animation="zoom-in-top">
-        <ul className={subClasses}>{childrenComponents}</ul>
+      <Transition in={menuOpen} timeout={300} animation="zoom-in-top">
+        <ul className={subMenuClasses}>{childrenComponent}</ul>
       </Transition>
     );
   };
 
   return (
-    <li className={classes} key={index} {...hoverEvents}>
-      <div className="stars-submenu-title" {...clickEvent}>
+    <li key={index} className={classes} {...hoverEvents}>
+      <div className="submenu-title" {...clickEvents}>
         {title}
         <Icon icon="angle-down" className="arrow-icon" />
       </div>
@@ -102,6 +103,5 @@ export const SubMenu: FC<ISubMenuProps> = ({
   );
 };
 
-SubMenu.displayName = `SubMenu`;
-
+SubMenu.displayName = "SubMenu";
 export default SubMenu;
