@@ -1,8 +1,13 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { withInfo } from "@storybook/addon-info";
 import Button from "./button";
+
+const marginStyle = {
+  marginRight: "20px",
+};
+
+const marginDec = (storyFn: any) => <div style={marginStyle}>{storyFn()}</div>;
 
 const defaultButton = () => (
   <Button onClick={action("clicked")}> default button </Button>
@@ -26,16 +31,7 @@ const buttonWithType = () => (
 );
 
 storiesOf("Button", module)
-  .addDecorator(withInfo)
-  .addParameters({
-    info: {
-      inline: true,
-    },
-  })
+  .addDecorator(marginDec)
   .add("默认", defaultButton)
-  .add("不同尺寸", buttonWithSize, {
-    info: {
-      inline: false,
-    },
-  })
+  .add("不同尺寸", buttonWithSize)
   .add("不同类型", buttonWithType);

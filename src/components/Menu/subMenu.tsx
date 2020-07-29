@@ -1,4 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, {
+  useContext,
+  useState,
+  FC,
+  FunctionComponentElement,
+} from "react";
 import classNames from "classnames";
 import { MenuContext } from "./menu";
 import { IMenuItemProps } from "./menuItem";
@@ -11,7 +16,7 @@ export interface ISubMenuProps {
   className?: string;
 }
 
-const SubMenu: React.FC<ISubMenuProps> = ({
+export const SubMenu: FC<ISubMenuProps> = ({
   index,
   title,
   children,
@@ -68,9 +73,7 @@ const SubMenu: React.FC<ISubMenuProps> = ({
       "stars-submenu-open": subMenuIsOpen,
     });
     const childrenComponents = React.Children.map(children, (child, i) => {
-      const childElement = child as React.FunctionComponentElement<
-        IMenuItemProps
-      >;
+      const childElement = child as FunctionComponentElement<IMenuItemProps>;
       const { displayName } = childElement.type;
 
       // eslint-disable-next-line

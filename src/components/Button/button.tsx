@@ -23,9 +23,8 @@ export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 
 /**
  * 第一个 Button 组件
- * ## Button Header
  * ~~~js
- *  Hello World
+ *  import { Button } from 'stars'
  * ~~~
  */
 export const Button: FC<ButtonProps> = (props) => {
