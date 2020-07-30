@@ -1,18 +1,33 @@
-import React, { FC, useState, ChangeEvent } from "react";
+import React, { FC, useState, ChangeEvent, ReactElement } from "react";
 import Input, { InputProps } from "../Input/input";
+import Icon from "../icon/icon";
+
+interface DataSourceObject {
+  value: string;
+  // number: number;
+}
+export type DataSourceType<T = {}> = T & DataSourceObject;
 
 export interface IAutoCompleteProps extends Omit<InputProps, "onSelect"> {
-  fetchSuggestion: (word: string) => string[];
-  onSelect?: (item: string) => void;
-  initValue?: string;
+  fetchSuggestion: (
+    query: string
+  ) => DataSourceType[] | Promise<DataSourceType[]>;
+  onSelect?: (item: DataSourceType) => void;
+  renderOption?: (item: DataSourceType) => ReactElement;
 }
 
 export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
-  const { fetchSuggestion, onSelect, initValue, ...restProps } = props;
+  const {
+    fetchSuggestion,
+    onSelect,
+    value,
+    renderOption,
+    ...restProps
+  } = props;
 
-  const [input, setInput] = useState(initValue);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  console.log("suggestions", suggestions);
+  const [input, setInput] = useState(value);
+  const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
@@ -20,14 +35,23 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
 
     if (value) {
       const result = fetchSuggestion(value);
-      setSuggestions(result);
+
+      if (result instanceof Promise) {
+        setLoading(true);
+        result.then((data) => {
+          setSuggestions(data);
+          setLoading(false);
+        });
+      } else {
+        setSuggestions(result);
+      }
     } else {
       setSuggestions([]);
     }
   };
 
-  const handleSelect = (item: string) => {
-    setInput(item);
+  const handleSelect = (item: DataSourceType) => {
+    setInput(item.value);
     setSuggestions([]);
 
     if (onSelect) {
@@ -35,12 +59,16 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
     }
   };
 
+  const renderTemplate = (item: DataSourceType) => {
+    return renderOption ? renderOption(item) : item.value;
+  };
+
   const generateDropDown = () => {
     return (
       <ul>
         {suggestions.map((suggestion, index) => (
           <li key={index} onClick={() => handleSelect(suggestion)}>
-            {suggestion}
+            {renderTemplate(suggestion)}
           </li>
         ))}
       </ul>
@@ -50,6 +78,11 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   return (
     <div className="stars-auto-complete">
       <Input value={input} onChange={handleChange} {...restProps} />
+      {loading && (
+        <ul>
+          <Icon icon="spinner" spin />
+        </ul>
+      )}
       {suggestions && generateDropDown()}
     </div>
   );
