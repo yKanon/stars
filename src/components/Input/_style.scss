@@ -76,17 +76,22 @@
   border: $input-border-width solid $input-group-addon-border-color;
   border-radius: $input-border-radius;
 }
+
+.input-group-append {
+  z-index: -1;
+}
+
 .input-group-append + .btn {
   padding: 0;
   border: 0;
 }
 .input-group > .input-group-prepend,
-.input-group.input-group-append > .input-inner {
+.input-group.input-has-append > .input-inner {
   @include border-right-radius(0);
 }
 
 .input-group > .input-group-append,
-.input-group.input-group-prepend > .input-inner {
+.input-group.input-has-prepend > .input-inner {
   @include border-left-radius(0);
 }
 

@@ -39,8 +39,8 @@ export const Input: FC<InputProps> = (props) => {
     [`input-size-${size}`]: size,
     "is-disabled": disabled,
     "input-group": prepend || append,
-    // "input-group-append": !!append,
-    // "input-group-prepend": !!prepend,
+    "input-has-append": !!append,
+    "input-has-prepend": !!prepend,
   });
 
   // 使用受控组件时，使用useState没有设置初始值会提出警告，这里自动设置空字符串为初始值

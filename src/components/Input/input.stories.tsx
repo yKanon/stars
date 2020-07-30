@@ -33,7 +33,7 @@ const sizeInput = () => (
 const pandInput = () => (
   <div>
     <Input
-      style={{ width: "300px", marginBottom: "30px" }}
+      style={{ width: "300px" }}
       defaultValue="prepend text"
       prepend="https://"
     />
