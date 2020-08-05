@@ -3,12 +3,12 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { AutoComplete, DataSourceType } from "./autoComplete";
 
-interface IOptionProps {
+export interface IOptionProps {
   value: string;
   number: number;
 }
 
-interface GithubUserProps {
+export interface GithubUserProps {
   login: string;
   url: string;
   avatar_url: string;
@@ -77,18 +77,21 @@ const SimpleComplete = () => {
       });
   };
 
-  const renderOption = (item: DataSourceType<GithubUserProps>) => (
-    <>
-      <h2>Name: {item.login}</h2>
-      <p>Number: {item.url}</p>
-    </>
-  );
+  const renderOption = (itemWithGithub: DataSourceType) => {
+    const item = itemWithGithub as DataSourceType<GithubUserProps>;
+    return (
+      <>
+        <h2>Name: {item.login}</h2>
+        <p>Number: {item.url}</p>
+        <p>Number: {item.avatar_url}</p>
+      </>
+    );
+  };
 
   return (
     <AutoComplete
       fetchSuggestion={fetchSuggestion}
       onSelect={action("selected")}
-      // TODO ts2322 接口类型错误？
       renderOption={renderOption}
     ></AutoComplete>
   );

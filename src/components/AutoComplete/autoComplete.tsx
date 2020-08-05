@@ -2,11 +2,17 @@ import React, { FC, useState, ChangeEvent, ReactElement } from "react";
 import Input, { InputProps } from "../Input/input";
 import Icon from "../icon/icon";
 
+// import { GithubUserProps } from "./autoComplete.stories";
 interface DataSourceObject {
   value: string;
-  // number: number;
 }
+
 export type DataSourceType<T = {}> = T & DataSourceObject;
+// type DataSource<T> = T;
+
+// interface IRenderOption {
+//   <T>(item: DataSourceType): ReactElement;
+// }
 
 export interface IAutoCompleteProps extends Omit<InputProps, "onSelect"> {
   fetchSuggestion: (

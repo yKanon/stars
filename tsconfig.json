@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "noImplicitAny": false,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -12,9 +11,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "noImplicitAny": false,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src"]
+  "include": ["src", ".storybook/webpack.config.js"]
 }
