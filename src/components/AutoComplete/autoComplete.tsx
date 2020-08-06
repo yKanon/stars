@@ -138,7 +138,12 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
 
   const generateDropDown = () => {
     return (
-      <ul>
+      <ul className="suggestion-list">
+        {loading && (
+          <ul className="loading-icon">
+            <Icon icon="spinner" spin />
+          </ul>
+        )}
         {suggestions.map((suggestion, index) => {
           // console.log("suggestion", suggestion);
           const cnames = classNames("suggestion-item", {
@@ -166,11 +171,7 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
         onKeyDown={handleKeyDown}
         {...restProps}
       />
-      {loading && (
-        <ul>
-          <Icon icon="spinner" spin />
-        </ul>
-      )}
+
       {suggestions && generateDropDown()}
     </div>
   );
