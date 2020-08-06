@@ -2,14 +2,17 @@ import React, {
   useEffect,
   FC,
   useState,
+  useRef,
   ChangeEvent,
   ReactElement,
   KeyboardEvent,
 } from "react";
 import Input, { InputProps } from "../Input/input";
 import Icon from "../icon/icon";
-import useDebounce from "../hooks/useDebounce";
 import classNames from "classnames";
+
+import useDebounce from "../hooks/useDebounce";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 // import { GithubUserProps } from "./autoComplete.stories";
 interface DataSourceObject {
@@ -45,10 +48,15 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   const [loading, setLoading] = useState(false);
   // // const [focus, setFocus] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
+  const triggerSearch = useRef(false);
 
   const debounceValue = useDebounce(input, 500);
+  const componentRef = useRef<HTMLDivElement>(null);
+  useClickOutside(componentRef, () => {
+    setSuggestions([]);
+  });
   useEffect(() => {
-    if (debounceValue) {
+    if (debounceValue && triggerSearch.current) {
       const result = fetchSuggestion(debounceValue);
 
       if (result instanceof Promise) {
@@ -70,11 +78,13 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setInput(value);
+    triggerSearch.current = true;
   };
 
   const handleSelect = (item: DataSourceType) => {
     setInput(item.value);
     setSuggestions([]);
+    triggerSearch.current = false;
 
     if (onSelect) {
       onSelect(item);
@@ -94,7 +104,6 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(e);
     switch (e.keyCode) {
       // 回车
       case 13:
@@ -151,7 +160,7 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   };
 
   return (
-    <div className="stars-auto-complete">
+    <div className="stars-auto-complete" ref={componentRef}>
       <Input
         value={input}
         onChange={handleChange}
