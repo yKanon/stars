@@ -12,7 +12,7 @@ import Icon from "../icon/icon";
 import classNames from "classnames";
 
 import useDebounce from "../hooks/useDebounce";
-import { useClickOutside } from "../hooks/useClickOutside";
+import useClickOutside from "../hooks/useClickOutside";
 
 // import { GithubUserProps } from "./autoComplete.stories";
 interface DataSourceObject {
@@ -46,7 +46,6 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   const [input, setInput] = useState(value as string);
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
-  // // const [focus, setFocus] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const triggerSearch = useRef(false);
 
