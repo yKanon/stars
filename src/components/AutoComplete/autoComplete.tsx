@@ -10,6 +10,7 @@ import React, {
 import Input, { InputProps } from "../Input/input";
 import Icon from "../icon/icon";
 import classNames from "classnames";
+import Transition from "../Transition/transition";
 
 import useDebounce from "../hooks/useDebounce";
 import useClickOutside from "../hooks/useClickOutside";
@@ -48,6 +49,7 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   const [loading, setLoading] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const triggerSearch = useRef(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const debounceValue = useDebounce(input, 500);
   const componentRef = useRef<HTMLDivElement>(null);
@@ -63,16 +65,27 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
         result.then((data) => {
           setSuggestions(data);
           setLoading(false);
+          if (data.length > 0) {
+            setShowDropdown(true);
+          }
         });
       } else {
         setSuggestions(result);
+        if (result.length > 0) {
+          setShowDropdown(true);
+        }
       }
     } else {
-      setSuggestions([]);
+      setShowDropdown(false);
     }
 
     setHighlightIndex(-1);
   }, [debounceValue, fetchSuggestion]);
+
+  // const renderDropdown = () => {
+  //   if (suggestions) {
+  //   }
+  // };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
@@ -82,7 +95,7 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
 
   const handleSelect = (item: DataSourceType) => {
     setInput(item.value);
-    setSuggestions([]);
+    setShowDropdown(false);
     triggerSearch.current = false;
 
     if (onSelect) {
@@ -122,9 +135,7 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
       // 目前似乎没有解决方案。在百度、谷歌中也存在这个问题
       // 可能时系统的原因。mac 系统似乎是可以又这个功能
       case 27:
-        setSuggestions([]);
-        console.log(1);
-
+        setShowDropdown(false);
         break;
 
       default:
@@ -138,28 +149,37 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
 
   const generateDropDown = () => {
     return (
-      <ul className="suggestion-list">
-        {loading && (
-          <ul className="loading-icon">
-            <Icon icon="spinner" spin />
-          </ul>
-        )}
-        {suggestions.map((suggestion, index) => {
-          // console.log("suggestion", suggestion);
-          const cnames = classNames("suggestion-item", {
-            "item-highlighted": index === highlightIndex,
-          });
-          return (
-            <li
-              key={index}
-              className={cnames}
-              onClick={() => handleSelect(suggestion)}
-            >
-              {renderTemplate(suggestion)}
-            </li>
-          );
-        })}
-      </ul>
+      <Transition
+        in={showDropdown || loading}
+        timeout={300}
+        animation="zoom-in-top"
+        onExited={() => {
+          setSuggestions([]);
+        }}
+      >
+        <div className="suggestion-list">
+          {loading && (
+            <ul className="loading-icon">
+              <Icon icon="spinner" spin />
+            </ul>
+          )}
+          {suggestions.map((suggestion, index) => {
+            // console.log("suggestion", suggestion);
+            const cnames = classNames("suggestion-item", {
+              "item-highlighted": index === highlightIndex,
+            });
+            return (
+              <li
+                key={index}
+                className={cnames}
+                onClick={() => handleSelect(suggestion)}
+              >
+                {renderTemplate(suggestion)}
+              </li>
+            );
+          })}
+        </div>
+      </Transition>
     );
   };
 
@@ -172,7 +192,7 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
         {...restProps}
       />
 
-      {suggestions && generateDropDown()}
+      {generateDropDown()}
     </div>
   );
 };
