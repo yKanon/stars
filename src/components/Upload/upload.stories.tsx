@@ -1,8 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+// import { action } from "@storybook/addon-actions";
 import Upload from "./upload";
 
+// eslint-disable-next-line
 const checkFileSize = (file: File): boolean => {
   if (file.size / 1024 > 50) {
     alert(`file is too big`);
@@ -11,6 +12,7 @@ const checkFileSize = (file: File): boolean => {
   return true;
 };
 
+// eslint-disable-next-line
 const filePromise = (file: File) => {
   const newFile = new File([file], file.name, { type: file.type });
   return Promise.resolve(newFile);
@@ -18,12 +20,7 @@ const filePromise = (file: File) => {
 
 const defaultUpload = () => (
   <div>
-    <Upload
-      action="http://jsonplaceholder.typicode.com/posts"
-      onProgress={action("progress")}
-      onSuccess={action("success")}
-      onError={action("error")}
-    ></Upload>
+    <Upload action="https://jsonplaceholder.typicode.com/posts"></Upload>
   </div>
 );
 
