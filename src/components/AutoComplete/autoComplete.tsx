@@ -21,11 +21,6 @@ interface DataSourceObject {
 }
 
 export type DataSourceType<T = {}> = T & DataSourceObject;
-// type DataSource<T> = T;
-
-// interface IRenderOption {
-//   <T>(item: DataSourceType): ReactElement;
-// }
 
 export interface IAutoCompleteProps extends Omit<InputProps, "onSelect"> {
   fetchSuggestion: (
@@ -50,12 +45,15 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const triggerSearch = useRef(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const inputRef = useRef<HTMLElement>(null);
 
   const debounceValue = useDebounce(input, 500);
   const componentRef = useRef<HTMLDivElement>(null);
+
   useClickOutside(componentRef, () => {
     setSuggestions([]);
   });
+
   useEffect(() => {
     if (debounceValue && triggerSearch.current) {
       const result = fetchSuggestion(debounceValue);
@@ -81,11 +79,6 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
 
     setHighlightIndex(-1);
   }, [debounceValue, fetchSuggestion]);
-
-  // const renderDropdown = () => {
-  //   if (suggestions) {
-  //   }
-  // };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
@@ -131,9 +124,7 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
       case 40:
         highlight(highlightIndex + 1);
         break;
-      // TODO esc 在 input 框中按 esc 会退出 input 聚焦，无法触发 handleKeydown 事件
-      // 目前似乎没有解决方案。在百度、谷歌中也存在这个问题
-      // 可能时系统的原因。mac 系统似乎是可以又这个功能
+      // 与 Vimium 插件冲突。esc 事件被插件拦截。请关闭该插件或者在无痕模式下查看
       case 27:
         setShowDropdown(false);
         break;

@@ -1,8 +1,8 @@
 {
-  "name": "starts",
+  "name": "stars",
   "version": "0.1.2",
   "private": false,
-  "description": "使用ts开发的react组件库(个人学习ts)",
+  "description": "使用ts开发的react组件库",
   "author": "yKanon",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -13,10 +13,10 @@
     "React",
     "typescript"
   ],
-  "homepage": "https://github.com/chenshone/chen-ui",
+  "homepage": "https://gitee.com/exea/stars",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chenshone/chen-ui"
+    "url": " https://gitee.com/exea/stars"
   },
   "files": [
     "dist"
@@ -30,7 +30,7 @@
     "react-transition-group": "^4.3.0"
   },
   "scripts": {
-    "serve": "react-scripts start",
+    "start": "react-scripts start",
     "clean": "rimraf ./dist",
     "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
     "build": "npm run clean && npm run build-ts && npm run build-css",
@@ -63,11 +63,11 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.2.8",
-    "@storybook/addon-info": "^5.2.8",
-    "@storybook/addon-links": "^5.2.8",
-    "@storybook/addons": "^5.2.8",
-    "@storybook/react": "^5.2.8",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-info": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",

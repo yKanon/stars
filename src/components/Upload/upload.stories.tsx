@@ -1,7 +1,19 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-// import { action } from "@storybook/addon-actions";
-import Upload from "./upload";
+import { action } from "@storybook/addon-actions";
+import Upload, { IUploadFile } from "./upload";
+
+const defaultFileList: IUploadFile[] = [
+  {
+    uid: "123",
+    size: 1234,
+    name: "hello.md",
+    status: "uploading",
+    percent: 30,
+  },
+  { uid: "122", size: 1234, name: "xyz.md", status: "success", percent: 30 },
+  { uid: "121", size: 1234, name: "abc.md", status: "error", percent: 30 },
+];
 
 // eslint-disable-next-line
 const checkFileSize = (file: File): boolean => {
@@ -20,7 +32,11 @@ const filePromise = (file: File) => {
 
 const defaultUpload = () => (
   <div>
-    <Upload action="https://jsonplaceholder.typicode.com/posts"></Upload>
+    <Upload
+      action="https://jsonplaceholder.typicode.com/posts"
+      defaultFileList={defaultFileList}
+      onRemove={action("removed")}
+    ></Upload>
   </div>
 );
 

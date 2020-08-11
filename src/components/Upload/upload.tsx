@@ -1,6 +1,7 @@
 import React, { FC, useRef, ChangeEvent, useState } from "react";
 import axios from "axios";
 import Button from "../Button/button";
+import UploadList from "./uploadList";
 
 export type UploadFileStatus = "ready" | "uploading" | "success" | "error";
 
@@ -17,24 +18,30 @@ export interface IUploadFile {
 
 export interface IUploadProps {
   action: string;
+  defaultFileList?: IUploadFile[];
   beforeUpload?: (file: File) => boolean | Promise<File>;
   onProgress?: (percentage: number, file: File) => void;
   onSuccess?: (data: any, file: File) => void;
   onError?: (err: any, file: File) => void;
   onChange?: (file: File) => void;
+  onRemove?: (file: IUploadFile) => void;
 }
 
 export const Upload: FC<IUploadProps> = (props) => {
   const {
     action,
+    defaultFileList,
     beforeUpload,
     onProgress,
     onSuccess,
     onError,
     onChange,
+    onRemove,
   } = props;
   const fileInput = useRef<HTMLInputElement>(null);
-  const [fileList, setFileList] = useState<IUploadFile[]>([]);
+  const [fileList, setFileList] = useState<IUploadFile[]>(
+    defaultFileList || []
+  );
   const updateFileList = (
     updateFile: IUploadFile,
     updateObj: Partial<IUploadFile>
@@ -154,6 +161,7 @@ export const Upload: FC<IUploadProps> = (props) => {
         type="file"
         ref={fileInput}
       />
+      <UploadList fileList={fileList} onRemove={() => {}} />
     </div>
   );
 };
