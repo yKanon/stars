@@ -18,6 +18,20 @@ export const UploadList: FC<IUploadFileList> = (props) => {
             <Icon icon="file-alt" theme="secondary"></Icon>
             {item.name}
           </span>
+          <span className="file-status">
+            {item.status === "uploading" && (
+              <Icon icon="spinner" theme="primary" spin />
+            )}
+            {item.status === "success" && (
+              <Icon icon="check-circle" theme="success" />
+            )}
+            {item.status === "error" && (
+              <Icon icon="times-circle" theme="danger" />
+            )}
+          </span>
+          <span className="file-actions">
+            <Icon icon="times" onClick={() => onRemove(item)} />
+          </span>
         </li>
       ))}
     </ul>

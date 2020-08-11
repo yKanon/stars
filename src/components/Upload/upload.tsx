@@ -75,6 +75,16 @@ export const Upload: FC<IUploadProps> = (props) => {
     }
   };
 
+  const handleRemove = (file: IUploadFile) => {
+    setFileList((prevList) => {
+      return prevList.filter((item) => item.uid !== file.uid);
+    });
+
+    if (onRemove) {
+      onRemove(file);
+    }
+  };
+
   const uploadFiles = (files: FileList) => {
     const postFiles = Array.from(files);
     postFiles.forEach((file) => {
@@ -147,8 +157,6 @@ export const Upload: FC<IUploadProps> = (props) => {
       });
   };
 
-  console.log(`fileList`, fileList);
-
   return (
     <div className="stars-upload-component">
       <Button btnType="primary" onClick={handleClick}>
@@ -161,7 +169,7 @@ export const Upload: FC<IUploadProps> = (props) => {
         type="file"
         ref={fileInput}
       />
-      <UploadList fileList={fileList} onRemove={() => {}} />
+      <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   );
 };
