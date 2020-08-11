@@ -1,0 +1,32 @@
+.stars-progress-bar {
+  width: 100%;
+  box-sizing: border-box;
+  .stars-progress-bar-outer {
+    position: relative;
+    background-color: $progress-bg;
+    border-radius: $progress-border-radius;
+    .stars-progress-bar-inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      border-radius: $progress-border-radius;
+      line-height: 1;
+      transition: $progress-bar-transition;
+      .inner-text {
+        color: $progress-bar-color;
+        font-size: $progress-font-size;
+        margin: 0 5px;
+      }
+    }
+  }
+
+  @each $key, $val in $theme-colors {
+    .color-#{$key} {
+      background-color: $val;
+    }
+  }
+}

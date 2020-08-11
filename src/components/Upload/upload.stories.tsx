@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Upload, { IUploadFile } from "./upload";
+import { act } from "react-dom/test-utils";
 
 const defaultFileList: IUploadFile[] = [
   {
@@ -33,7 +34,8 @@ const filePromise = (file: File) => {
 const defaultUpload = () => (
   <div>
     <Upload
-      action="https://jsonplaceholder.typicode.com/posts"
+      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      onChange={action("changed")}
       defaultFileList={defaultFileList}
       onRemove={action("removed")}
     ></Upload>
