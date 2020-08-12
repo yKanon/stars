@@ -2,19 +2,18 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Upload, { IUploadFile } from "./upload";
-import { act } from "react-dom/test-utils";
 
-const defaultFileList: IUploadFile[] = [
-  {
-    uid: "123",
-    size: 1234,
-    name: "hello.md",
-    status: "uploading",
-    percent: 30,
-  },
-  { uid: "122", size: 1234, name: "xyz.md", status: "success", percent: 30 },
-  { uid: "121", size: 1234, name: "abc.md", status: "error", percent: 30 },
-];
+// const defaultFileList: IUploadFile[] = [
+//   {
+//     uid: "123",
+//     size: 1234,
+//     name: "hello.md",
+//     status: "uploading",
+//     percent: 30,
+//   },
+//   { uid: "122", size: 1234, name: "xyz.md", status: "success", percent: 30 },
+//   { uid: "121", size: 1234, name: "abc.md", status: "error", percent: 30 },
+// ];
 
 // eslint-disable-next-line
 const checkFileSize = (file: File): boolean => {
@@ -36,8 +35,12 @@ const defaultUpload = () => (
     <Upload
       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
       onChange={action("changed")}
-      defaultFileList={defaultFileList}
       onRemove={action("removed")}
+      name="fileName"
+      data={{ key: "value" }}
+      headers={{ "X-Powered-By": "stars" }}
+      accept=".jpg"
+      multiple
     ></Upload>
   </div>
 );
