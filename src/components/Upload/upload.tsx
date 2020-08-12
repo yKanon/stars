@@ -1,6 +1,7 @@
 import React, { FC, useRef, ChangeEvent, useState } from "react";
 import axios from "axios";
-import Button from "../Button/button";
+// import Button from "../Button/button";
+import Dragger from "../Dragger";
 import UploadList from "./uploadList";
 
 export type UploadFileStatus = "ready" | "uploading" | "success" | "error";
@@ -31,6 +32,7 @@ export interface IUploadProps {
   withCredentials?: boolean;
   accept?: string;
   multiple?: boolean;
+  draggable?: boolean;
 }
 
 export const Upload: FC<IUploadProps> = (props) => {
@@ -49,6 +51,8 @@ export const Upload: FC<IUploadProps> = (props) => {
     withCredentials,
     accept,
     multiple,
+    draggable,
+    children,
   } = props;
   const fileInput = useRef<HTMLInputElement>(null);
   const [fileList, setFileList] = useState<IUploadFile[]>(
@@ -181,18 +185,32 @@ export const Upload: FC<IUploadProps> = (props) => {
 
   return (
     <div className="stars-upload-component">
-      <Button btnType="primary" onClick={handleClick}>
-        Upload File
-      </Button>
-      <input
-        className="stars-file-input"
-        style={{ display: "none" }}
-        onChange={handleFileChange}
-        type="file"
-        ref={fileInput}
-        accept={accept}
-        multiple={multiple}
-      />
+      <div
+        className="stars-upload-input"
+        onClick={handleClick}
+        style={{ display: "inline-block" }}
+      >
+        {draggable ? (
+          <Dragger
+            onFile={(files) => {
+              uploadFiles(files);
+            }}
+          >
+            {children}
+          </Dragger>
+        ) : (
+          children
+        )}
+        <input
+          className="stars-file-input"
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+          type="file"
+          ref={fileInput}
+          accept={accept}
+          multiple={multiple}
+        />
+      </div>
       <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   );

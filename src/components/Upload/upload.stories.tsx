@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Upload, { IUploadFile } from "./upload";
+import Icon from "../icon/icon";
 
 // const defaultFileList: IUploadFile[] = [
 //   {
@@ -37,11 +38,13 @@ const defaultUpload = () => (
       onChange={action("changed")}
       onRemove={action("removed")}
       name="fileName"
-      data={{ key: "value" }}
-      headers={{ "X-Powered-By": "stars" }}
-      accept=".jpg"
+      draggable
       multiple
-    ></Upload>
+    >
+      <Icon icon="upload" size="5x" theme="secondary"></Icon>
+      <br />
+      <p>Drag file over to upload</p>
+    </Upload>
   </div>
 );
 
