@@ -45,7 +45,6 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const triggerSearch = useRef(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const inputRef = useRef<HTMLElement>(null);
 
   const debounceValue = useDebounce(input, 500);
   const componentRef = useRef<HTMLDivElement>(null);

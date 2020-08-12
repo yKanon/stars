@@ -1,7 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Upload, { IUploadFile } from "./upload";
+import Upload from "./upload";
+// import  { IUploadFile } from "./upload";
 import Icon from "../icon/icon";
 
 // const defaultFileList: IUploadFile[] = [

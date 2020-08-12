@@ -1,6 +1,5 @@
 import React, { FC, CSSProperties } from "react";
 import { ThemeProps } from "../icon/icon";
-import { spawn } from "child_process";
 
 export interface IProgressProps {
   percentage: number;

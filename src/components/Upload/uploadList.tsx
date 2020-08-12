@@ -20,7 +20,7 @@ export const UploadList: FC<IUploadFileList> = (props) => {
             {item.name}
           </span>
           <span className="file-status">
-            {item.status === "uploading" && (
+            {(item.status === "uploading" || item.status === "ready") && (
               <Icon icon="spinner" theme="primary" spin />
             )}
             {item.status === "success" && (

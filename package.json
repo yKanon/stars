@@ -27,7 +27,8 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
-    "react-transition-group": "^4.3.0"
+    "react-transition-group": "^4.3.0",
+    "webpack": "^4.42.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -83,8 +84,8 @@
     "react": "^16.13.1",
     "react-docgen-typescript-loader": "^3.6.0",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.2",
     "rimraf": "^3.0.2",
-    "typescript": "~3.7.2"
+    "typescript": "^3.9.7"
   }
 }

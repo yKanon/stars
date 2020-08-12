@@ -16,13 +16,23 @@ export type ThemeProps =
   | "dark";
 
 export interface IconProps extends FontAwesomeIconProps {
+  /**
+   * icon的主题
+   */
   theme?: ThemeProps;
 }
 
-export const Icon: FC<IconProps> = (props) => {
+/**
+ * 各种Icon
+ * ~~~js
+ * import { Icon } from 'chenshone-ui'
+ * ~~~
+ */
+const Icon: FC<IconProps> = (props) => {
+  // icon-primary
   const { className, theme, ...restProps } = props;
-  const classes = classNames("stars-icon", className, {
-    [`stars-icon-${theme}`]: theme,
+  const classes = classNames("icon", className, {
+    [`icon-${theme}`]: theme,
   });
 
   return <FontAwesomeIcon className={classes} {...restProps} />;
