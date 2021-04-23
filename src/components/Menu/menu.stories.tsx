@@ -1,9 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Menu from "./Menu";
-import MenuItem from "./MenuItem";
-import { SubMenu } from "./SubMenu";
+import Menu from "./menu";
+import MenuItem from "./menuItem";
+import { SubMenu } from "./subMenu";
 
 export const defaultMenu = () => (
   <Menu

@@ -6,7 +6,7 @@ import React, {
   CSSProperties,
 } from 'react'
 import classNames from 'classnames'
-import { MenuItemProps } from './MenuItem'
+import { MenuItemProps } from './menuItem'
 
 type MenuMode = 'horizontal' | 'vertical'
 type SelectCallback = (selectedIndex: string) => void
